@@ -1844,6 +1844,25 @@
               </xsl:for-each>
             </xsl:if>
           </tbody>
+          <tfoot>
+            <tr>
+              <td class="table-basic__header table-basic__cell--to-right" colspan="2">Razem</td>
+              <td class="table-basic__header table-basic__cell--to-right">
+                <xsl:value-of select="format-number(sum(tns:Fa/*[starts-with(local-name(),'P_13_')]), '### ##0,00', 'european')"/>
+              </td>
+              <td class="table-basic__header table-basic__cell--to-right">
+                <xsl:value-of select="format-number(sum(tns:Fa/*[starts-with(local-name(),'P_14_') and not(contains(local-name(), 'W'))]), '### ##0,00', 'european')"/>
+              </td>
+              <td class="table-basic__header table-basic__cell--to-right">
+                <xsl:value-of select="format-number(sum(tns:Fa/*[starts-with(local-name(),'P_13_')]) + sum(tns:Fa/*[starts-with(local-name(),'P_14_') and not(contains(local-name(), 'W'))]), '### ##0,00', 'european')"/>
+              </td>
+              <xsl:if test="tns:Fa/tns:P_14_1W | tns:Fa/tns:P_14_2W | tns:Fa/tns:P_14_3W | tns:Fa/tns:P_14_4W">
+                <td class="table-basic__header table-basic__cell--to-right">
+                  <xsl:value-of select="format-number(sum(tns:Fa/*[starts-with(local-name(),'P_14_') and contains(local-name(), 'W')]), '### ##0,00', 'european')"/>
+                </td>
+              </xsl:if>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </xsl:if>
